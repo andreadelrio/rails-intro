@@ -7,7 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @all_ratings = Movie.rating
+    @all_ratings = Movie.get_ratings
     @chosen_ratings = @all_ratings
     @chosen_ratings = params["ratings"].keys if params["ratings"]
     if params[:sort] == 'title'
