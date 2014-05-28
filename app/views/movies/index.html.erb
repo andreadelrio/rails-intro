@@ -1,31 +1,42 @@
-<h1> All Movies </h1>
-
-<%= form_tag movies_path, id: "ratings_form", :method => :get do %>
-Include:
+<h1>All Movies</h1>
+<%= form_tag movies_path, method: :get do %>
+  Include:
   <% @all_ratings.each do |rating| %>
     <%= rating %>
-    <%= check_box_tag "ratings[#{rating}]", 1, (@chosen_ratings.include? rating), :id => "ratings_#{rating}" %>
-<% end %>    
-    <%= submit_tag 'Refresh', id: "ratings_submit" %>
-<% end %>    
-
-<table>
+    <input checked="<%= was_checked?(rating) %>" id="ratings_<%= rating %>" name="ratings[]" type="checkbox" value="<%= rating %>"></input>
+  <% end %>
+  <input id="ratings_submit" type="submit" value="Refresh"></input>
+<% end %>
+<table id="movies">
   <thead>
     <tr>
-      <th class="<%= "hilite" if params[:sort] == "title" %>"><%= link_to 'Movie Title', movies_path(:sort => 'title'), :id => "title_header" %> </th>
-      <th> Rating </th>
-      <th class="<%= "hilite" if params[:sort] == "release_date" %>"><%= link_to 'Release Date', movies_path(:sort => 'release_date'), :id => "release_date_header" %>  </th>
-      <th> More Info </th>
-  </thead>    
+      <th class="<%= was_highlighted?('title') %>">
+        <%= link_to 'Movie Title', movies_path(create_order_params 'title'), id: 'title_header' %>
+      </th>
+      <th>Rating</th>
+      <th class="<%= was_highlighted?('release_date') %>">
+        <%= link_to 'Release Date', movies_path(create_order_params 'release_date'), id: 'release_date_header' %>
+      </th>
+      <th>More Info</th>
+    </tr>
+  </thead>
   <tbody>
     <% @movies.each do |movie| %>
       <tr>
-        <td><%= movie.title %></td> 
-        <td><%= movie.rating %></td>
-        <td><%= movie.release_date %></td>
-        <td><%= link_to "More about #{movie.title}", movie_path(movie) %></td>
-      </tr>  
-      <% end %>
-  </tbody>   
- </table>  
+        <td>
+          <%= movie.title  %>
+        </td>
+        <td>
+          <%= movie.rating %>
+        </td>
+        <td>
+          <%= movie.release_date %>
+        </td>
+        <td>
+          <%= link_to "More about #{movie.title}", movie_path(movie) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 <%= link_to 'Add new movie', new_movie_path %>
