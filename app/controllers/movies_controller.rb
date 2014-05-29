@@ -28,14 +28,14 @@ class MoviesController < ApplicationController
       @ordered_by = session[:ordered_by] unless @ordered_by
 
       flash.keep
-      redirect_to movies_path({order_by: @ordered_by, ratings: @checked_ratings.keys})
+      redirect_to movies_path({order_by: @ordered_by, ratings: @checked_ratings})
     end
 
     if @checked_ratings
       if @ordered_by      
-        @movies = Movie.find_all_by_rating(@checked_ratings.keys, :order => "#{@ordered_by} asc")
+        @movies = Movie.find_all_by_rating(@checked_ratings, :order => "#{@ordered_by} asc")
       else
-        @movies = Movie.find_all_by_rating(@checked_ratings.keys)
+        @movies = Movie.find_all_by_rating(@checked_ratings)
       end
     elsif @ordered_by
       @movies = Movie.all(:order => "#{@ordered_by} asc")
