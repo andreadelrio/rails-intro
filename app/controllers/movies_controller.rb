@@ -28,7 +28,7 @@ class MoviesController < ApplicationController
       @ordered_by = session[:ordered_by] unless @ordered_by
 
       flash.keep
-      redirect_to movies_path({order_by: @ordered_by, ratings: @checked_ratings})
+      redirect_to movies_path({order_by: @ordered_by, ratings: @checked_ratings.keys})
     end
 
     if @checked_ratings
