@@ -4,7 +4,7 @@
   <% @all_ratings.each do |rating| %>
    <%= rating %>
    <% if @checked_ratings.nil? %>
-      <%= check_box_tag "ratings[#{rating}]", rating, true, :id => "ratings_#{rating}" %>
+      <%= check_box_tag "ratings[#{rating}]", "\n          #{rating}\n        ", true, :id => "ratings_#{rating}" %>
     <% else %>
       <%= check_box_tag "ratings[#{rating}]", rating, (@checked_ratings.include? rating), :id => "ratings_#{rating}" %>
     <% end %>
