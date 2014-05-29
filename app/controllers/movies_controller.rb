@@ -33,9 +33,9 @@ class MoviesController < ApplicationController
 
     if @checked_ratings
       if @ordered_by      
-        @movies = Movie.find_all_by_rating(@checked_ratings, :order => "#{@ordered_by} asc")
+        @movies = Movie.find_all_by_rating(@checked_ratings.keys, :order => "#{@ordered_by} asc")
       else
-        @movies = Movie.find_all_by_rating(@checked_ratings)
+        @movies = Movie.find_all_by_rating(@checked_ratings.keys)
       end
     elsif @ordered_by
       @movies = Movie.all(:order => "#{@ordered_by} asc")
