@@ -3,7 +3,11 @@
   Include:
   <% @all_ratings.each do |rating| %>
     <%= rating %>
-    <%= check_box_tag "ratings[#{rating}]", 1, (@checked_ratings.include? rating unless @checked_ratings.nil?), :id => "ratings_#{rating}" %>
+    <% if @checked_ratings.nil? %>
+      <%= check_box_tag "ratings[#{rating}]", 1, true, :id => "ratings_#{rating}" %>
+    <% else %>
+      <%= check_box_tag "ratings[#{rating}]", 1, (@checked_ratings.include? rating), :id => "ratings_#{rating}" %>
+    <% end %>
   <% end %>
   <%= submit_tag 'Refresh', id: "ratings_submit" %>
 <% end %>
